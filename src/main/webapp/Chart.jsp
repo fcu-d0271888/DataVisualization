@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
-    <% int a = 20;%>
-    
-    
+    <% int a = 20; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -20,12 +16,12 @@
           ['20',  0],
           ['30',  1],
           ['40',  0],
-	  		['50',  0],
+	  	  ['50',  0],
           ['60',  2],
           ['70',  0],
           ['80',  0],
-	 		 ['90',  2],
-	  ['100', 1]
+	 	  ['90',  2],
+	      ['100', 1]
         ]);
 
         var options = {
