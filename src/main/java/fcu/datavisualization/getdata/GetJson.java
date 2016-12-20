@@ -35,7 +35,8 @@ public class GetJson {
     	BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
         String jsonText = readAll(rd);        
         JSONArray output = new JSONArray(jsonText);
-        //System.out.println(output.getJSONObject(0).getJSONObject("commit").getJSONObject("author").getString("date"));
+        System.out.println(output.getJSONObject(0).getJSONObject("commit"));
+        System.out.println(output.getJSONObject(0).getJSONObject("commit").getJSONObject("author").getString("date"));
         return output.getJSONObject(0).getJSONObject("commit").getJSONObject("author");
         
       } finally {
@@ -56,7 +57,7 @@ public class GetJson {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Date a = sdf.parse(DateTime);
 	    Date c = sdf.parse(Day);
-	    
+	   
 	    
 	    if(a.getTime() > c.getTime()){
 	    	System.out.println("遲交");
@@ -74,7 +75,7 @@ public class GetJson {
   }*/
   
 
-  /*public static void main(String[] args) throws IOException, JSONException, ParseException {
+  public static void main(String[] args) throws IOException, JSONException, ParseException {
     JSONObject json = readJsonFromUrl("https://api.github.com/repos/fcu-d0271888/WP-HW1/commits");
     String date = (String) json.getString("date").subSequence(0, 10);  //日期
     String time = (String) json.getString("date").subSequence(11, 19); //時間
@@ -86,13 +87,14 @@ public class GetJson {
     System.out.println(json.getString("date"));
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Date a = sdf.parse(DateTime); 
-    Date b = transform("2016-09-21 15:32:55");
-    System.out.println("**" + transform("2016-09-21 15:32:55"));
+    System.out.println(a);
+   // Date b = GetDate("2016-09-21 15:32:55");
+    //System.out.println("**" + transform("2016-09-21 15:32:55"));
     
     int ontime = 0;
     int late = 0;
-    
-    if(a.getTime() > b.getTime()){
+    System.out.println("test" + 1);
+   /* if(a.getTime() > b.getTime()){
     	System.out.println("遲交");
     	late++;
     }
@@ -101,4 +103,5 @@ public class GetJson {
     	ontime++;
     }
   }*/
+}
 }
