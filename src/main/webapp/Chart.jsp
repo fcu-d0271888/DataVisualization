@@ -1,19 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <%@page import = "fcu.datavisualization.getdata.GetJson,fcu.datavisualization.getdata.RSData"%>
+    <%@page import = "fcu.datavisualization.getdata.GetJson,fcu.datavisualization.getdata.RSData,java.util.ArrayList"%>
     <% 
     GetJson GetJson = new GetJson();
-    int LateCount = 0;
-    int OntimeCount = 0;
-    int NotCount = 0;
-    RSData rsdata = new RSData();
-    rsdata = GetJson.GetDate();
-    LateCount = rsdata.getLateCount();
-    OntimeCount = rsdata.getOntimeCount();
-    NotCount = rsdata.getNotCount();
-  //  LateCount = GetJson.GetDate().getLateCount();
     
- //   OntimeCount = GetJson.GetDate().getOntimeCount();
-//    NotCount = GetJson.GetDate().getNotCount();
+    int LateCount[] = new int[6];
+    int OntimeCount[] = new int [6];
+    int NotCount[] = new int [6];
+    
+    ArrayList<String> list = new ArrayList<String>();
+    
+     RSData rsdata = new RSData();
+    
+    for(int i = 1; i <= 6; i++){
+    	System.out.println("HW" + i);
+    	rsdata = GetJson.GetDate(i);
+    	LateCount[i-1] = rsdata.getLateCount();
+        OntimeCount[i-1] = rsdata.getOntimeCount();
+        NotCount[i-1] = rsdata.getNotCount();
+    }
     
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,18 +30,24 @@
 
 
       function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var LateCount = <%=LateCount%>;
-        var OntimeCount = <%=OntimeCount%>;
-      	var NotCount = <%=NotCount%>;
+        var LateCount = new Array();
+        var OntimeCount = new Array();
+        var NotCount = new Array();
+        <%for(int i = 0; i < 6; i++){%>
+        	LateCount[<%= i %>] = <%=LateCount[i]%>;
+        	OntimeCount[<%= i %>] = <%=OntimeCount[i]%>;
+        	NotCount[<%= i %>] = <%=NotCount[i]%>;
+        <%}%>
+        
         var data = google.visualization.arrayToDataTable([
          ['Month', '已交作業', '遲交作業', '未交作業'],
-         ['09/27',  OntimeCount,LateCount,NotCount],
-         ['10/14',  35,      1,          5],
-         ['11/11',  28,      2,         12],
-         ['11/25',  38,      10,         2],
-         ['12/05',  25,      3,         15]
-      ]);
+         ['09/27',  OntimeCount[0],LateCount[0],NotCount[0]],
+         ['10/14',  OntimeCount[1],LateCount[1],NotCount[1]],
+         ['11/11',  OntimeCount[2],LateCount[2],NotCount[2]],
+         ['11/25',  OntimeCount[3],LateCount[3],NotCount[3]],
+         ['12/05',  OntimeCount[4],LateCount[4],NotCount[4]],
+         ['12/20',  OntimeCount[5],LateCount[5],NotCount[5]]
+         ]);
 
     var options = {
       title : '作業狀況',

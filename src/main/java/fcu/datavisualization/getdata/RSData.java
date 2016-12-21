@@ -1,9 +1,20 @@
 package fcu.datavisualization.getdata;
 
+import java.util.ArrayList;
+
 public class RSData {
 	private int LateCount;
 	private int OntimeCount;
 	private int NotCount;
+	private ArrayList<String> list;
+	public ArrayList<String> getList() {
+		return list;
+	}
+
+	public void setList(ArrayList<String> list) {
+		this.list = list;
+	}
+
 	public int getNotCount() {
 		return NotCount;
 	}
