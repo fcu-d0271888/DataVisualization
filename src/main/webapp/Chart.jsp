@@ -1,44 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <%@page import = "fcu.datavisualization.getdata.GetJson,java.util.ArrayList"%>
+    <%@page import = "fcu.datavisualization.getdata.GetJson,fcu.datavisualization.getdata.RSData"%>
     <% 
-    GetJson GetDay = new GetJson();
-    int OntimeCount = 0;
+    GetJson GetJson = new GetJson();
     int LateCount = 0;
-    int output = 3;
-    ArrayList<String> list = new ArrayList<String>();
-    String test1 = "2016-09-21 15:32:55";
-    list.add(test1);
-    String test2 = "2016-09-22 15:32:55";
-    list.add(test2);
-    String test3 = "2016-09-21 15:32:55";
-    list.add(test3);
-    String test4 = "2016-09-20 14:32:55";
-    list.add(test4);
-    String test5 = "2016-09-19 15:32:55";
-    list.add(test5);
-    String test6 = "2016-09-18 15:32:55";
-    list.add(test6);
-    String test7 = "2016-09-19 15:32:55";
-    list.add(test7);
+    int OntimeCount = 0;
+    int NotCount = 0;
+    RSData rsdata = new RSData();
+    rsdata = GetJson.GetDate();
+    LateCount = rsdata.getLateCount();
+    OntimeCount = rsdata.getOntimeCount();
+    NotCount = rsdata.getNotCount();
+  //  LateCount = GetJson.GetDate().getLateCount();
     
-    
-   /* output = GetDay.GetDate(test5);
-    if(output == 1){
-    	LateCount++;
-    }
-    else if(output == 0){
-    	OntimeCount++;
-    }*/
-    
-    for(int i = 0; i < 7; i++){
-    	output = GetDay.GetDate(list.get(i));
-        if(output == 1){
-        	LateCount++;
-        }
-        else if(output == 0){
-        	OntimeCount++;
-        }
-    }
+ //   OntimeCount = GetJson.GetDate().getOntimeCount();
+//    NotCount = GetJson.GetDate().getNotCount();
     
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -54,13 +29,14 @@
         // Some raw data (not necessarily accurate)
         var LateCount = <%=LateCount%>;
         var OntimeCount = <%=OntimeCount%>;
+      	var NotCount = <%=NotCount%>;
         var data = google.visualization.arrayToDataTable([
          ['Month', '已交作業', '遲交作業', '未交作業'],
-         ['09/20',  LateCount,      OntimeCount,          3],
-         ['12/06',  35,      1,          5],
-         ['12/20',  28,      2,         12],
-         ['01/08',  38,      10,         2],
-         ['01/12',  25,      3,         15]
+         ['09/27',  OntimeCount,LateCount,NotCount],
+         ['10/14',  35,      1,          5],
+         ['11/11',  28,      2,         12],
+         ['11/25',  38,      10,         2],
+         ['12/05',  25,      3,         15]
       ]);
 
     var options = {
